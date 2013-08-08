@@ -1,9 +1,7 @@
 # ConfigManager
- =============
+## T4 Template for wrap andstrongly-typed config file settings. For Vb and C#
 
-### T4 Template for wrap andstrongly-typed config file settings. For Vb and C#
-
-##How Use
+### How Use
 The projects are an exameple how use this T4 template for wrap config properties in .NET Projects. 
 
 You don't need download all repository, you only need AppSettingsCS.tt (for C# Projects) and AppSettingsVB.tt (for VB.NET Projets).
