@@ -1,0 +1,135 @@
+﻿<#@ template language="VB" debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" #>
+<#@ Assembly Name="System.Core.dll" #>
+<#@ Assembly Name="System.Windows.Forms.dll" #>
+<#@ Assembly Name="System.Configuration" #>
+<#@ assembly Name="EnvDTE" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #> 
+<#@ import namespace="System.Configuration" #>
+<#
+
+    '****************************************************************************************************************************
+    'Author & Copyright (c) René Pacios - www.WebRene.es All rights reserved.    
+    'You can use this template for Personal or Comercial prupouse, but you must mantain the copyright information and author
+    'this template is distributed on an "AS IS" BASIS,  * WITHOUT WARRANTIES OF ANY KIND, USE ON YOUR OWN RISK
+    '****************************************************************************************************************************
+ 
+    '*********************************************************************************************************************************
+    'Author & Copyright (c) René Pacios - www.WebRene.es Todos los derechos reservados
+    'Tu puedes usar esta plantilla para uso Personal o Comercial, pero tu debes mantener siempre la información del copyrigth y autor
+    'esta plantilla se distribuye "TAL CUAL", * SIN GARANTÍAS DE NINGÚN TIPO, SU USO ESTA BAJO SU RESPONSABILIDAD
+    '**********************************************************************************************************************************
+
+
+    if(string.IsNullOrEmpty(getConfigPath())) then return string.Empty 
+	
+    dim configFile as new ExeConfigurationFileMap()
+    configFile.ExeConfigFilename=GetConfigPath()
+    if string.IsNullOrEmpty(configFile.ExeConfigFilename) then throw new Exception(string.Format("Algo no le gustó del fichero de configuración {0}",GetConfigPath()))
+	
+    dim config = System.Configuration.Configurationmanager.OpenMappedExeConfiguration(configFile,ConfigurationUserLevel.None)',configurationUserLevel.None)
+    dim appSettings =config.AppSettings.Settings
+    if appSettings.AllKeys.Length=0 then return string.Empty
+		
+    	
+    Dim nombreClase="Settings"
+    Dim espacioNombres=""
+    Dim InstanciableYHeredable=false
+  
+    
+	
+#>
+using System;
+using System.Configuration;
+using System.Collections.Generic;
+//-------------------------------------------------------------------------------------------------------------
+//Notas este código fue generado por la plantilla AppSettings.tt cualquier cambio debe hacerse en la misma
+//Generado: <#=        DateTime.Now #>
+//-------------------------------------------------------------------------------------------------------------
+<#    
+    If espacioNombres.length>0 then
+ #>
+namespace <#=espacioNombres#> {
+<#    
+    End If
+#>
+    public<#=if(InstanciableYHeredable," class "," static class ")#><#=nombreClase #> {
+
+<# 
+           for each s as string in appSettings.AllKeys				
+#>
+
+        public <#=if(InstanciableYHeredable,"virtual","static")#> string <#=FormateaNombreMetodo(s) #>
+        {
+            get { return <#=Getter(s) #>; }		
+        }
+<#next #>
+        
+        public List< KeyValuePair<string, string>> GetListSettings()
+        {
+                var l= new List<KeyValuePair<string, string>>();     
+           
+<# for each s as string in appSettings.AllKeys #>
+            l.Add(new KeyValuePair<string, string>("uno","dos"));
+<# next #>
+
+                return l;           
+        }	
+
+       } //end class
+
+<# If espacioNombres.length>0 then #>
+} //end namespace
+<#  End If#>
+ 
+<#+
+	
+    private function FormateaNombreMetodo(s as String ) as String       
+        return Text.RegularExpressions.Regex.Replace(s, "[^\w\.@]", "_")  
+    end function
+
+    private function Getter(s as String ) as String 
+        return  string.Format("ConfigurationManager.AppSettings[""{0}""]",s)	
+    end function
+
+    Private function GetCurrentProject() as EnvDTE.Project 	
+        Dim _serv as IServiceProvider=ctype(Host,IServiceProvider)	
+        Dim dte As EnvDTE.DTE = TryCast(_serv.GetService(GetType(EnvDTE.DTE)), EnvDTE.DTE)	
+        Dim activeSolProjects=ctype(dte.ActiveSolutionProjects,Array)		
+        Dim currentProject = trycast(activeSolProjects.GetValue(0),EnvDTE.Project)
+		
+        return currentproject
+    end function	
+
+    private function GetProjectPath() as String 
+        dim proj = GetCurrentProject()
+        dim f=new FileInfo(proj.FullName)
+
+        return f.Directory.FullName
+    end function
+
+    private function GetProjectItems() as List(of String)
+        dim proj as EnvDTE.Project=GetCurrentProject()
+        dim l as New List(of String)
+        for each p as EnvDTE.ProjectItem in proj.ProjectItems
+            l.Add(p.name)
+        next
+        return l
+    end function
+
+    private function GetConfigPath() as String 
+        dim proj as EnvDTE.Project=GetCurrentProject()		
+        for each p as EnvDTE.ProjectItem in proj.ProjectItems
+            if p.name.equals("App.config",StringComparison.InvariantCultureIgnoreCase) orelse _
+                p.name.equals("Web.config",StringComparison.InvariantCultureIgnoreCase) then
+                return io.path.combine(GetProjectPath(),p.name) 			
+            end if
+        next
+        return string.Empty
+    end function
+#>
