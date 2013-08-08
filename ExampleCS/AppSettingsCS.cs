@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Collections.Generic;
 //-------------------------------------------------------------------------------------------------------------
 //Notas este código fue generado por la plantilla AppSettings.tt cualquier cambio debe hacerse en la misma
-//Generado: 08/07/2013 23:44:22
+//Generado: 08/08/2013 16:59:18
 //-------------------------------------------------------------------------------------------------------------
     public static class Settings {
 

@@ -36,10 +36,11 @@
     dim appSettings =config.AppSettings.Settings
     if appSettings.AllKeys.Length=0 then return string.Empty
 		
-    	
-    Dim nombreClase="Settings"
-    Dim espacioNombres=""
-    Dim InstanciableYHeredable=false
+
+   'Config Options  	
+    Dim _ClassName="Settings"
+    Dim _Namespace=""
+    Dim _Heritable=false
   
     
 	
@@ -52,19 +53,19 @@ using System.Collections.Generic;
 //Generado: <#=        DateTime.Now #>
 //-------------------------------------------------------------------------------------------------------------
 <#    
-    If espacioNombres.length>0 then
+    If _Namespace.length>0 then
  #>
-namespace <#=espacioNombres#> {
+namespace <#=_Namespace#> {
 <#    
     End If
 #>
-    public<#=if(InstanciableYHeredable," class "," static class ")#><#=nombreClase #> {
+    public<#=if(_Heritable," class "," static class ")#><#=_ClassName #> {
 
 <# 
            for each s as string in appSettings.AllKeys				
 #>
 
-        public <#=if(InstanciableYHeredable,"virtual","static")#> string <#=FormateaNombreMetodo(s) #>
+        public <#=if(_Heritable,"virtual","static")#> string <#=FormateaNombreMetodo(s) #>
         {
             get { return <#=Getter(s) #>; }		
         }
@@ -83,7 +84,7 @@ namespace <#=espacioNombres#> {
 
        } //end class
 
-<# If espacioNombres.length>0 then #>
+<# If _Namespace.length>0 then #>
 } //end namespace
 <#  End If#>
  
