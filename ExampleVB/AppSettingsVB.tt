@@ -37,9 +37,9 @@
     if appSettings.AllKeys.Length=0 then return string.Empty
 		
     	
-    Dim nombreClase="SettingsBase"
-    Dim espacioNombres=""
-    Dim InstanciableYHeredable=true
+    Dim _ClassName="SettingsBase"
+    Dim _Namespace=""
+    Dim _Heritable=true
   
     
 	
@@ -51,18 +51,18 @@ Imports System.Configuration
 'Generado: <#=        DateTime.Now #>
 '-------------------------------------------------------------------------------------------------------------
 <#    
-    If espacioNombres.length>0 then
+    If _Namespace.length>0 then
  #>
-Namespace <#= espacioNombres#>
+Namespace <#= _Namespace#>
 <#    
     End If
 #>
- Public  <#=if(InstanciableYHeredable,"Class","Module")#> <#= nombreClase #>
+ Public  <#=if(_Heritable,"Class","Module")#> <#= _ClassName #>
 
  	 <# 
     for each s as string in appSettings.AllKeys				
 	 #>
-    Public ReadOnly <#=if(InstanciableYHeredable,"Overridable","")#> Property <#=FormateaNombreMetodo(s) #> As String
+    Public ReadOnly <#=if(_Heritable,"Overridable","")#> Property <#=FormateaNombreMetodo(s) #> As String
 		Get
 			Return <#=            Getter(s) #>
 		End Get	 
@@ -82,9 +82,9 @@ Namespace <#= espacioNombres#>
         return l
     End Function
 
-End  <#=If(InstanciableYHeredable,"Class","Module")#>
+End  <#=If(_Heritable,"Class","Module")#>
 
-<#    If espacioNombres.length>0 then #>
+<#    If _Namespace.length>0 then #>
 End Namespace 
 <#    End If#>
  
