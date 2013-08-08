@@ -36,7 +36,7 @@
     dim appSettings =config.AppSettings.Settings
     if appSettings.AllKeys.Length=0 then return string.Empty
 		
-    	
+    '***** Config Options ****    	
     Dim _ClassName="SettingsBase"
     Dim _Namespace=""
     Dim _Heritable=true
