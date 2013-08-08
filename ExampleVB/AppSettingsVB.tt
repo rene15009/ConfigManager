@@ -25,7 +25,12 @@
     'esta plantilla se distribuye "TAL CUAL", * SIN GARANTÍAS DE NINGÚN TIPO, SU USO ESTA BAJO SU RESPONSABILIDAD
     '**********************************************************************************************************************************
 
-
+    '***** Config Options ****    	
+    Dim _ClassName="SettingsBase"
+    Dim _Namespace=""
+    Dim _Heritable=true
+  
+    
     if(string.IsNullOrEmpty(getConfigPath())) then return string.Empty 
 	
     dim configFile as new ExeConfigurationFileMap()
@@ -35,13 +40,7 @@
     dim config = System.Configuration.Configurationmanager.OpenMappedExeConfiguration(configFile,ConfigurationUserLevel.None)',configurationUserLevel.None)
     dim appSettings =config.AppSettings.Settings
     if appSettings.AllKeys.Length=0 then return string.Empty
-		
-    '***** Config Options ****    	
-    Dim _ClassName="SettingsBase"
-    Dim _Namespace=""
-    Dim _Heritable=true
-  
-    
+	  
 	
 #>
 Imports System
