@@ -4,7 +4,7 @@ ConfigManager
 ___
 
 ### Purpose ###
-The projects are an exameple how use this T4 template for wrap config properties in .NET Projects. 
+The projects are an exameple how use this T4 template for wrap config properties in .NET Projects. This work in several project types like Windows Aplications (Console, Services,etc.), WebSites, WebProjects,WCF Projects... Only require Visual Studio IDE or Express Edition (In Express Edition you'll could add a .tt file but you have to run custom tool manually to 'TextTemplatingFileProcessor' run) 
 ___
 
 ### How Use ###
