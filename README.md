@@ -1,5 +1,5 @@
 # ConfigManager
-# =============
+ =============
 
 ### T4 Template for wrap andstrongly-typed config file settings. For Vb and C#
 
