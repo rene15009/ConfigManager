@@ -3,7 +3,7 @@ Imports System
 Imports System.Configuration
 '-------------------------------------------------------------------------------------------------------------
 'Notas este código fue generado por la plantilla AppSettings.tt cualquier cambio debe hacerse en la misma
-'Generado: 08/08/2013 17:11:20
+'Generado: 08/08/2013 17:17:45
 '-------------------------------------------------------------------------------------------------------------
 Public Class SettingsBase
 

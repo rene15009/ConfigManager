@@ -53,7 +53,7 @@ Imports System.Configuration
 <#    
     If _Namespace.length>0 then
  #>
-Namespace <#= _Namespace#>
+Namespace <#= _Namespace#>  
 <#    
     End If
 #>
