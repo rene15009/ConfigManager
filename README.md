@@ -1,6 +1,9 @@
 ConfigManager
 ===
 ### T4 Template for wrap andstrongly-typed config file settings. For Vb and C# ###
+___
+
+### Purpose ###
 The projects are an exameple how use this T4 template for wrap config properties in .NET Projects. 
 ___
 
