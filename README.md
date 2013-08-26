@@ -1,6 +1,6 @@
 ConfigManager
 ===
-### T4 Template for wrap andstrongly-typed config file settings. For Vb and C# ###
+### T4 Template for wrap and strongly-typed config file settings. For Vb and C# ###
 ___
 
 ### Purpose ###
