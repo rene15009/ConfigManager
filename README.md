@@ -28,6 +28,9 @@ You can change some settings in config variables at the top of .tt file.
 
 -  `_Hereditable:(boolean)` By default is false. This indicates if you want a static class or module(in case the template is for VB.NET) to access settings properties. If you set _Heriditable=true means T4 template will generate a common instanceable class.  
 
+-  `_UseExpressionBody:(boolean)` T4 template will generate properties using body expressions. You can use this feature in all versións of .NET 2.0+ only if you are using Roslyn Compiler.
+
+
 By default this template builds static class and you can't inherit from this. 
 Maybe you need to extend or change some behavior from some properties, for this case, you have to set _Hereditable=true to build a class that will be a instance class with virtual properties. For this implementation I suggest to implement a singleton pattern in child class. In ExampleVB project there is a implementation with _Hereditable=true and singleton pattern.
 ___
