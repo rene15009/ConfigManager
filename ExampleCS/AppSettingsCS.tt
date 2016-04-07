@@ -1,4 +1,4 @@
-﻿<#@ template language="VB" debug="true" hostSpecific="true" #>
+<#@ template language="VB" debug="true" hostSpecific="true" #>
 <#@ output extension=".cs" #>
 <#@ Assembly Name="System.Core.dll" #>
 <#@ Assembly Name="System.Windows.Forms.dll" #>
@@ -29,6 +29,7 @@
     Dim _ClassName="Settings"
     Dim _Namespace=""
     Dim _Heritable=false
+	Dim _UseExpressionBody=true 'Only for RoslynCompiler
 
     if(string.IsNullOrEmpty(getConfigPath())) then return string.Empty 
 	
@@ -62,18 +63,25 @@ namespace <#=_Namespace#> {
            for each s as string in appSettings.AllKeys				
 #>
 
+<# If _UseExpressionBody Then #> 
+  public <#=if(_Heritable,"virtual","static")#> string <#=FormateaNombreMetodo(s) #> => <#=Getter(s) #>;
+        
+
+<# Else #>
         public <#=if(_Heritable,"virtual","static")#> string <#=FormateaNombreMetodo(s) #>
         {
             get { return <#=Getter(s) #>; }		
         }
+
+<# End If #>
 <#next #>
         
-        public List< KeyValuePair<string, string>> GetListSettings()
+        public <#=if(_Heritable,"virtual","static")#> List< KeyValuePair<string, string>> GetListSettings()
         {
                 var l= new List<KeyValuePair<string, string>>();     
            
 <# for each s as string in appSettings.AllKeys #>
-            l.Add(new KeyValuePair<string, string>("uno","dos"));
+            l.Add(new KeyValuePair<string, string>("<#=s#>",<#=FormateaNombreMetodo(s) #>));
 <# next #>
 
                 return l;           
